@@ -9,11 +9,23 @@ async fn main() {
     let mut current_step = 0;
     let mut timer = 0.0;
     let step_duration = 0.5;
+
     loop {
         clear_background(BLACK);
-        if is_mouse_button_pressed(MouseButton::Left) {
+
+        if is_mouse_button_pressed(MouseButton::Left) && !animating {
             let (mx, my) = mouse_position();
             control_points.push((mx, my));
+        }
+
+        if is_key_pressed(KeyCode::Z) {
+            control_points.clear();
+            steps.clear();
+            animating = false;
+        }
+
+        if is_key_pressed(KeyCode::Escape) {
+            break;
         }
 
         if is_key_pressed(KeyCode::Enter) && control_points.len() >= 1 {
@@ -29,55 +41,39 @@ async fn main() {
             timer = 0.0;
         }
 
-        if is_key_pressed(KeyCode::Escape) {
-            break;
-        }
-
         if animating {
             timer += get_frame_time();
             if timer >= step_duration {
                 timer = 0.0;
-                current_step += 1;
-                if current_step >= steps.len() {
-                    current_step = 0;
-                }
+                current_step = (current_step + 1) % steps.len();
             }
         }
-        
-        let mut points_to_draw = if animating {
-            &steps[current_step]
-        } else {
-            &control_points
-        };
 
         for &(x, y) in &control_points {
-            draw_circle(x, y, 2.0, GRAY);
+            draw_circle(x, y, 4.0, SKYBLUE);
         }
 
         if !animating && control_points.len() >= 2 {
             for i in 0..control_points.len() - 1 {
                 let (x1, y1) = control_points[i];
                 let (x2, y2) = control_points[i + 1];
-                draw_line(x1, y1, x2, y2, 2.0, WHITE);
+                draw_line(x1, y1, x2, y2, 2.0, ORANGE);
             }
         }
 
-        for &(x, y) in points_to_draw {
-            draw_circle(x, y, 4.0, GRAY);
-        }
-
         if animating {
-            points_to_draw = &steps[current_step];
+            let points_to_draw = &steps[current_step];
+            for &(x, y) in points_to_draw {
+                draw_circle(x, y, 3.0, YELLOW);
+            }
             if points_to_draw.len() >= 2 {
                 for i in 0..points_to_draw.len() - 1 {
                     let (x1, y1) = points_to_draw[i];
                     let (x2, y2) = points_to_draw[i + 1];
-                    draw_line(x1, y1, x2, y2, 2.0, DARKBLUE);
+                    draw_line(x1, y1, x2, y2, 2.0, LIME);
                 }
             }
         }
-      
-
 
         next_frame().await;
     }
