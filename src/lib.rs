@@ -22,3 +22,4 @@ pub fn chaikin_algo(in_points: &[(f32, f32)]) -> Vec<(f32, f32)> {
 
     tmp
 }
+
