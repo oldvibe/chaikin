@@ -5,7 +5,6 @@ async fn main() {
     let mut points: Vec<(f32, f32)> = Vec::new();
     // let mut first_point: Option<(f32, f32)> = None;
     // let mut second_point: Option<(f32, f32)> = None;
-<<<<<<< HEAD
     let mut entered = false;
     loop {
         clear_background(BLACK);
@@ -16,16 +15,6 @@ async fn main() {
             }
         }
         
-=======
-    loop {
-        clear_background(BLACK);
-        println!("sm");
-        if is_mouse_button_pressed(MouseButton::Left) {
-            println!("i'm in");
-            let (mx, my) = mouse_position();
-            points.push((mx, my));
-        }
->>>>>>> ee4781fb410b80434bfce0364e8a2a7335f3c4a8
         // if is_mouse_button_pressed(MouseButton::Left)  {
         //     println!("i'm in");
         //     let (x, y) = mouse_position();
