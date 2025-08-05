@@ -8,11 +8,13 @@ async fn main() {
     let mut entered = false;
     loop {
         clear_background(BLACK);
-        println!("sm");
-        if is_mouse_button_pressed(MouseButton::Left) {
-            println!("i'm in");
-            let (mx, my) = mouse_position();
-            points.push((mx, my));
+        if !entered{
+
+            if is_mouse_button_pressed(MouseButton::Left) {
+                println!("i'm in");
+                let (mx, my) = mouse_position();
+                points.push((mx, my));
+            }
         }
         // if is_mouse_button_pressed(MouseButton::Left)  {
         //     println!("i'm in");
@@ -22,7 +24,6 @@ async fn main() {
         // }
 
         for &(x, y) in &points {
-            println!("i'm in");
             draw_circle(x, y, 3.0, GRAY);
             draw_circle(x, y, 1.0, BLACK);
         }
