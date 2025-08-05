@@ -22,7 +22,8 @@ async fn main() {
 
         for &(x, y) in &points {
             println!("i'm in");
-            draw_circle(x, y, 5.0, YELLOW);
+            draw_circle(x, y, 3.0, GRAY);
+            draw_circle(x, y, 1.0, BLACK);
         }
 
         if points.len() >= 2 {
