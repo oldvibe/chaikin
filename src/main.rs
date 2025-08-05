@@ -9,13 +9,12 @@ async fn main() {
     loop {
         clear_background(BLACK);
         if !entered{
-
             if is_mouse_button_pressed(MouseButton::Left) {
-                println!("i'm in");
                 let (mx, my) = mouse_position();
                 points.push((mx, my));
             }
         }
+        
         // if is_mouse_button_pressed(MouseButton::Left)  {
         //     println!("i'm in");
         //     let (x, y) = mouse_position();
@@ -49,6 +48,11 @@ async fn main() {
                 }
                 draw_line(points[points.len()-2].0, points[points.len()-2].1, end_x, end_y, 2.0, RED);
                 is_curved= true
+            }
+            if is_key_pressed(KeyCode::Delete){
+                points=Vec::new();
+                entered=false;
+                is_curved=false
             }
         }
 
