@@ -8,7 +8,7 @@ async fn main() {
     let mut animating = false;
     let mut current_step = 0;
     let mut timer = 0.0;
-    let step_duration = 1.0;
+    let step_duration = 0.5;
     // let smooth_points = chaikin_algo(&points);
     // println!("{:?}", smooth_points);
     loop {
@@ -52,7 +52,7 @@ async fn main() {
             }
         }
         
-        let points_to_draw = if animating {
+        let mut points_to_draw = if animating {
             &steps[current_step]
         } else {
             &control_points
@@ -74,13 +74,17 @@ async fn main() {
             draw_circle(x, y, 4.0, GREEN);
         }
 
-        if points_to_draw.len() >= 2 {
-            for i in 0..points_to_draw.len() - 1 {
-                let (x1, y1) = points_to_draw[i];
-                let (x2, y2) = points_to_draw[i + 1];
-                draw_line(x1, y1, x2, y2, 2.0, WHITE);
+        if animating {
+            points_to_draw = &steps[current_step];
+            if points_to_draw.len() >= 2 {
+                for i in 0..points_to_draw.len() - 1 {
+                    let (x1, y1) = points_to_draw[i];
+                    let (x2, y2) = points_to_draw[i + 1];
+                    draw_line(x1, y1, x2, y2, 2.0, WHITE);
+                }
             }
         }
+      
 
         // ui.label(None, "Left");
         // if is_mouse_button_down(MouseButton::Right) {
