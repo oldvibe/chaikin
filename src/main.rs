@@ -50,7 +50,7 @@ async fn main() {
                 is_curved= true
             }
             if is_key_pressed(KeyCode::Delete){
-                points=Vec::new();
+                points.clear();
                 entered=false;
                 is_curved=false
             }
